@@ -29,15 +29,13 @@ jobs:
 
       - name: Verify GH_TOKEN is set
         run: echo "Token is set"
-        env:
-          GH_TOKEN: ${{ secrets.wrenchchat_token }}
 
       - name: Check GitHub API rate limits
-        run: gh api rate_limit --auth ${{ secrets.wrenchchat_token }}
+        run: gh api rate_limit
 
       - name: Fork the repository
-        run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false --auth ${{ secrets.wrenchchat_token }}
-      
+        run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
