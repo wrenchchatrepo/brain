@@ -222,3 +222,22 @@ Visualization:
   - repo_name: diagrams-as-code
     repo_description: Declarative cloud architecture with YAML
   - repo_name: Diagrams.net-Automation
+
+Web_Dev:
+  - repo_name: blueprint
+    repo_description: A React-based UI toolkit for the web   
+  - repo_name: ecommerce-store-reactjs-stripe-oauth2
+    repo_description: This is a fully functional Ecommerce Website   
+  - repo_name: github-pages-stripe-checkout
+    repo_description: Client-only donation page with Stripe
+  - repo_name: playwright
+    repo_description: Playwright is a framework for Web Testing and Automation.   
+  - repo_name: shadcn-ui
+    repo_description: Reusable web UI components
+  - repo_name: streamlit
+    repo_description: Framework for data-driven apps
+  - repo_name: streamlit-cheat-sheet
+    repo_description: A cheat sheet for streamlit   
+  - repo_name: stripe-react-native
+    repo_description: React Native library for Stripe.
+    
