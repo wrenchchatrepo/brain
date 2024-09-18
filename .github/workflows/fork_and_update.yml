@@ -1,0 +1,51 @@
+name: Fork Repo and Update Category
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: "The name of the repo to fork"
+        required: true
+        type: string
+      category:
+        description: "The category to assign"
+        required: true
+        type: string
+      description:
+        description: "A short description of the repo"
+        required: true
+        type: string
+
+jobs:
+  fork-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fork the repository
+        run: |
+          gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Update `repos_by_category.md`
+        run: |
+          CATEGORY=${{ inputs.category }}
+          REPO_NAME=${{ inputs.repo_name }}
+          DESCRIPTION=${{ inputs.description }}
+          FILE="repos_by_category.md"
+
+          # Check if the category already exists
+          if ! grep -q "$CATEGORY:" $FILE; then
+            echo -e "\n$CATEGORY:\n  - repo_name: $REPO_NAME\n    repo_description: $DESCRIPTION" >> $FILE
+          else
+            sed -i "/^$CATEGORY:/a \ \ - repo_name: $REPO_NAME\n    repo_description: $DESCRIPTION" $FILE
+          fi
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "your-email@example.com"
+          git config --local user.name "GitHub Action"
+          git add repos_by_category.md
+          git commit -m "Added ${{ inputs.repo_name }} to ${{ inputs.category }}"
+          git push
