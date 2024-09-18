@@ -8,9 +8,26 @@ on:
         required: true
         type: string
       category:
-        description: "The category to assign"
+        description: "Select the category to assign"
         required: true
+        default: "AI_ML_Features"
         type: string
+        options: 
+          - AI_ML_Features
+          - AI_Orchestration
+          - Data_Architect
+          - Data_Engineering
+          - Data_Science
+          - DevOps
+          - GitHub
+          - LLM_Powered
+          - LLMs
+          - Looker_Ecosystem
+          - LookML_Blocks
+          - Notebooks
+          - Python
+          - Visualization
+          - Web_Dev
       description:
         description: "A short description of the repo"
         required: true
@@ -30,18 +47,6 @@ jobs:
       - name: Verify GH_TOKEN is set
         run: echo "Token is set"
 
-      - name: Check GitHub API rate limits
-        run: gh api rate_limit
-
-      # Option 1: Fork with gh CLI and explicit token pass
-      # Uncomment the below block if you want to try this option:
-      # - name: Fork the repository
-      #   run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.wrenchchat_token }}
-
-      # Option 2: Fork via GitHub API call
-      # Uncomment the below block if you want to try this option:
       - name: Fork the repository via API
         run: |
           curl -X POST -H "Authorization: token ${{ secrets.wrenchchat_token }}" \
