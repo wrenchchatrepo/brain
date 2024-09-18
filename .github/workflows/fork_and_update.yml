@@ -33,8 +33,19 @@ jobs:
       - name: Check GitHub API rate limits
         run: gh api rate_limit
 
-      - name: Fork the repository
-        run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
+      # Option 1: Fork with gh CLI and explicit token pass
+      # Uncomment the below block if you want to try this option:
+      # - name: Fork the repository
+      #   run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.wrenchchat_token }}
+
+      # Option 2: Fork via GitHub API call
+      # Uncomment the below block if you want to try this option:
+      - name: Fork the repository via API
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.wrenchchat_token }}" \
+          https://api.github.com/repos/${{ inputs.repo_name }}/forks
 
       - name: Checkout Repository
         uses: actions/checkout@v2
