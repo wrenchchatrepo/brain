@@ -21,14 +21,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set GH_TOKEN at the job level
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this
 
     steps:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
-
-      - name: Authenticate with GitHub
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Fork the repository
         run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
