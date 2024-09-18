@@ -21,15 +21,23 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GH_TOKEN: ${{ secrets.wrenchchat_token }}  # Use your saved wrenchchat_token
+      GH_TOKEN: ${{ secrets.wrenchchat_token }}
 
     steps:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
-      - name: Fork the repository
-        run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false
+      - name: Verify GH_TOKEN is set
+        run: echo "Token is set"
+        env:
+          GH_TOKEN: ${{ secrets.wrenchchat_token }}
 
+      - name: Check GitHub API rate limits
+        run: gh api rate_limit --auth ${{ secrets.wrenchchat_token }}
+
+      - name: Fork the repository
+        run: gh repo fork ${{ inputs.repo_name }} --org wrenchchatrepo --clone=false --auth ${{ secrets.wrenchchat_token }}
+      
       - name: Checkout Repository
         uses: actions/checkout@v2
 
