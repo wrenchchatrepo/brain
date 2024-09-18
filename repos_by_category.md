@@ -181,6 +181,8 @@ LookML_Blocks:
     repo_description: Google Ads lookml block
 
 Notebooks:
+  - repo_name: quarto-dev/quarto-cli
+    repo_description: markdown_notebooks_for_tech_doc
   - repo_name: awesome-runbook
     repo_description: Collection of runbooks and guides
   - repo_name: docker-stacks
